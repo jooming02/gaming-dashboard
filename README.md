@@ -2,13 +2,11 @@
 
 A **high-performance React + TypeScript** dashboard that simulates a real-time game analytics environment. It features a fully interactive leaderboard for over **10,000 players**, complete with search, sort, pagination, and visual indicators.
 
----
 
 ## 🚀 Live Preview
 
 > https://gaming-dashboard.lovable.app/
 
----
 
 ## 📊 Features
 
@@ -27,8 +25,6 @@ A **high-performance React + TypeScript** dashboard that simulates a real-time g
   - Minimal re-renders via component memoization
   - Lazy-loaded components where appropriate
 
----
-
 ## 🛠️ Tech Stack
 
 - **Frontend**: [React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/)
@@ -37,8 +33,6 @@ A **high-performance React + TypeScript** dashboard that simulates a real-time g
 - **Data Handling**: Mock Data Generator simulating 10,000+ realistic player profiles
 - **Charting**: [Recharts](https://recharts.org/)
 - **Icons & Flags**: [Lucide Icons](https://lucide.dev/), country flags via emoji or API
-
----
 
 ## 📦 Getting Started
 

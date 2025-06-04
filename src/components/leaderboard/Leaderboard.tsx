@@ -80,12 +80,12 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
   const SortButton = ({ field, children }: { field: SortField; children: React.ReactNode }) => (
     <Button
       variant="ghost"
-      className="h-auto p-0 font-medium hover:bg-transparent"
+      className="h-auto p-0 font-medium hover:bg-transparent text-xs sm:text-sm"
       onClick={() => handleSort(field)}
     >
       {children}
       {sortField === field && (
-        sortDirection === "asc" ? <ChevronUp className="ml-1 h-4 w-4" /> : <ChevronDown className="ml-1 h-4 w-4" />
+        sortDirection === "asc" ? <ChevronUp className="ml-1 h-3 w-3 sm:h-4 sm:w-4" /> : <ChevronDown className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
       )}
     </Button>
   );
@@ -104,31 +104,31 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Top Players Leaderboard</CardTitle>
+        <CardTitle className="text-lg sm:text-xl">Top Players Leaderboard</CardTitle>
         <div className="flex items-center space-x-2">
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search players or countries..."
+              placeholder="Search players..."
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
                 setCurrentPage(1);
               }}
-              className="pl-8"
+              className="pl-8 text-sm"
             />
           </div>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-xs sm:text-sm text-muted-foreground">
             {filteredAndSortedPlayers.length} players
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border">
+        <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[80px]">
+                <TableHead className="w-[50px] sm:w-[80px]">
                   <SortButton field="rank">Rank</SortButton>
                 </TableHead>
                 <TableHead>
@@ -137,22 +137,22 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
                 <TableHead>
                   <SortButton field="score">Score</SortButton>
                 </TableHead>
-                <TableHead>
+                <TableHead className="hidden sm:table-cell">
                   <SortButton field="level">Level</SortButton>
                 </TableHead>
                 <TableHead>
-                  <SortButton field="winRate">Win Rate</SortButton>
+                  <SortButton field="winRate">Win%</SortButton>
                 </TableHead>
-                <TableHead>
+                <TableHead className="hidden md:table-cell">
                   <SortButton field="gamesPlayed">Games</SortButton>
                 </TableHead>
-                <TableHead>
+                <TableHead className="hidden lg:table-cell">
                   <SortButton field="averageScore">Avg Score</SortButton>
                 </TableHead>
-                <TableHead>
+                <TableHead className="hidden sm:table-cell">
                   <SortButton field="country">Country</SortButton>
                 </TableHead>
-                <TableHead>
+                <TableHead className="hidden lg:table-cell">
                   <SortButton field="lastActive">Last Active</SortButton>
                 </TableHead>
               </TableRow>
@@ -161,7 +161,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
               {currentPlayers.map((player) => (
                 <TableRow key={player.id}>
                   <TableCell className="font-medium">
-                    <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${
+                    <div className={`inline-flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full text-xs font-bold ${
                       player.rank <= 3 ? 'bg-yellow-100 text-yellow-800' : 
                       player.rank <= 10 ? 'bg-gray-100 text-gray-800' : 
                       'bg-blue-50 text-blue-700'
@@ -169,11 +169,15 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
                       {player.rank}
                     </div>
                   </TableCell>
-                  <TableCell className="font-medium">{player.username}</TableCell>
-                  <TableCell>{player.score.toLocaleString()}</TableCell>
-                  <TableCell>{player.level}</TableCell>
+                  <TableCell className="font-medium text-xs sm:text-sm">
+                    <div className="truncate max-w-[80px] sm:max-w-none">
+                      {player.username}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-xs sm:text-sm">{player.score.toLocaleString()}</TableCell>
+                  <TableCell className="hidden sm:table-cell text-xs sm:text-sm">{player.level}</TableCell>
                   <TableCell>
-                    <div className={`font-medium ${
+                    <div className={`font-medium text-xs sm:text-sm ${
                       player.winRate >= 70 ? 'text-green-600' : 
                       player.winRate >= 50 ? 'text-yellow-600' : 
                       'text-red-600'
@@ -181,21 +185,21 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
                       {player.winRate}%
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="text-sm">
+                  <TableCell className="hidden md:table-cell">
+                    <div className="text-xs sm:text-sm">
                       <div>{player.gamesPlayed}</div>
                       <div className="text-muted-foreground text-xs">
                         {player.wins}W {player.losses}L
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{player.averageScore.toLocaleString()}</TableCell>
-                  <TableCell>
-                    <span className="inline-flex items-center px-2 py-1 rounded-md bg-gray-100 text-xs font-medium">
+                  <TableCell className="hidden lg:table-cell text-xs sm:text-sm">{player.averageScore.toLocaleString()}</TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    <span className="inline-flex items-center px-1 sm:px-2 py-1 rounded-md bg-gray-100 text-xs font-medium">
                       {player.country}
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
+                  <TableCell className="hidden lg:table-cell text-xs text-muted-foreground">
                     {formatLastActive(player.lastActive)}
                   </TableCell>
                 </TableRow>
@@ -222,7 +226,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
                       <PaginationLink
                         onClick={() => setCurrentPage(pageNumber)}
                         isActive={currentPage === pageNumber}
-                        className="cursor-pointer"
+                        className="cursor-pointer text-xs sm:text-sm"
                       >
                         {pageNumber}
                       </PaginationLink>

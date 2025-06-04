@@ -21,17 +21,28 @@ const chartConfig = {
 
 export const GameCharts = ({ data }: GameChartsProps) => {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <Card>
+    <div className="grid gap-6 xl:grid-cols-2">
+      <Card className="w-full">
         <CardHeader>
-          <CardTitle>Active Players (24h)</CardTitle>
-          <CardDescription>Real-time player activity</CardDescription>
+          <CardTitle className="text-sm sm:text-base">Active Players (24h)</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">Real-time player activity</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={chartConfig} className="h-[300px]">
-            <AreaChart data={data}>
-              <XAxis dataKey="time" />
-              <YAxis />
+          <ChartContainer config={chartConfig} className="h-[180px] sm:h-[250px] lg:h-[300px] w-full">
+            <AreaChart data={data} margin={{ top: 10, right: 10, left: 5, bottom: 5 }}>
+              <XAxis 
+                dataKey="time" 
+                fontSize={10}
+                tickMargin={4}
+                interval="preserveStartEnd"
+                hide={true}
+              />
+              <YAxis 
+                fontSize={10}
+                tickMargin={4}
+                width={30}
+                className="hidden sm:block"
+              />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Area
                 type="monotone"
@@ -45,16 +56,27 @@ export const GameCharts = ({ data }: GameChartsProps) => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="w-full">
         <CardHeader>
-          <CardTitle>Matches Per Hour</CardTitle>
-          <CardDescription>Game matches started in the last 24 hours</CardDescription>
+          <CardTitle className="text-sm sm:text-base">Matches Per Hour</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">Game matches started in the last 24 hours</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={chartConfig} className="h-[300px]">
-            <BarChart data={data}>
-              <XAxis dataKey="time" />
-              <YAxis />
+          <ChartContainer config={chartConfig} className="h-[180px] sm:h-[250px] lg:h-[300px] w-full">
+            <BarChart data={data} margin={{ top: 10, right: 10, left: 5, bottom: 5 }}>
+              <XAxis 
+                dataKey="time" 
+                fontSize={10}
+                tickMargin={4}
+                interval="preserveStartEnd"
+                hide={true}
+              />
+              <YAxis 
+                fontSize={10}
+                tickMargin={4}
+                width={30}
+                className="hidden sm:block"
+              />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar dataKey="matches" fill="var(--color-matches)" />
             </BarChart>

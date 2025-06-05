@@ -5,7 +5,7 @@ import { Area, AreaChart, Bar, BarChart, ResponsiveContainer, XAxis, YAxis } fro
 import { ChartData } from "@/services/gameData";
 
 interface GameChartsProps {
-  data: ChartData[];
+  data: ChartData;
 }
 
 const chartConfig = {
@@ -20,6 +20,13 @@ const chartConfig = {
 };
 
 export const GameCharts = ({ data }: GameChartsProps) => {
+  // Convert the chart data format to match what recharts expects
+  const chartData = data.labels.map((label, index) => ({
+    time: label,
+    activePlayers: data.datasets[1]?.data[index] || 0,
+    matches: data.datasets[0]?.data[index] || 0,
+  }));
+
   return (
     <div className="grid gap-6 xl:grid-cols-2">
       <Card className="w-full">
@@ -28,8 +35,8 @@ export const GameCharts = ({ data }: GameChartsProps) => {
           <CardDescription className="text-xs sm:text-sm">Real-time player activity</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={chartConfig} className="h-[180px] sm:h-[250px] lg:h-[300px] w-full">
-            <AreaChart data={data} margin={{ top: 10, right: 10, left: 5, bottom: 5 }}>
+          <ChartContainer config={chartConfig} className="h-[120px] sm:h-[180px] lg:h-[220px] w-full">
+            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 5, bottom: 5 }}>
               <XAxis 
                 dataKey="time" 
                 fontSize={10}
@@ -62,8 +69,8 @@ export const GameCharts = ({ data }: GameChartsProps) => {
           <CardDescription className="text-xs sm:text-sm">Game matches started in the last 24 hours</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={chartConfig} className="h-[180px] sm:h-[250px] lg:h-[300px] w-full">
-            <BarChart data={data} margin={{ top: 10, right: 10, left: 5, bottom: 5 }}>
+          <ChartContainer config={chartConfig} className="h-[120px] sm:h-[180px] lg:h-[220px] w-full">
+            <BarChart data={chartData} margin={{ top: 10, right: 10, left: 5, bottom: 5 }}>
               <XAxis 
                 dataKey="time" 
                 fontSize={10}

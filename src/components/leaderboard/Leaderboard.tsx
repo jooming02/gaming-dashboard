@@ -54,6 +54,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
 
     filtered.sort((a, b) => {
       const aValue = a[sortField];
+      
       const bValue = b[sortField];
       
       if (typeof aValue === "string" && typeof bValue === "string") {

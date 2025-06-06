@@ -45,7 +45,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
     }
     setCurrentPage(1);
   };
-
+  // note
   const filteredAndSortedPlayers = useMemo(() => {
     let filtered = players.filter((player) =>
       player.username.toLowerCase().includes(searchTerm.toLowerCase()) ||

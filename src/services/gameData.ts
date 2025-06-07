@@ -1,89 +1,93 @@
-
 export interface Player {
   id: string;
-  username: string;
   rank: number;
+  username: string;
   score: number;
+  level: number;
+  winRate: number;
+  gamesPlayed: number;
   wins: number;
   losses: number;
-  winRate: number;
   averageScore: number;
-  gamesPlayed: number;
-  lastActive: string;
   country: string;
-  level: number;
+  lastActive: string;
+  // New properties for additional columns
+  totalPlayTime: number; // in hours
+  highestStreak: number;
+  currentStreak: number;
+  favoriteGameMode: string;
+  achievements: number;
+  joinDate: string;
+  clan: string;
+  prestigeLevel: number;
 }
 
 export interface GameStats {
   totalPlayers: number;
   activePlayers: number;
-  totalMatches: number;
   matchesLast24h: number;
   averageMatchDuration: number;
-  peakConcurrentPlayers: number;
 }
 
 export interface ChartData {
-  time: string;
-  activePlayers: number;
-  matches: number;
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    borderColor: string;
+    backgroundColor: string;
+  }[];
 }
 
-// Generate mock players data
-export const generateMockPlayers = (count: number): Player[] => {
-  const countries = ['US', 'UK', 'DE', 'FR', 'JP', 'KR', 'CN', 'BR', 'CA', 'AU'];
-  const usernames = ['Shadow', 'Phoenix', 'Dragon', 'Storm', 'Blade', 'Nova', 'Frost', 'Viper', 'Titan', 'Raven'];
-  const suffixes = ['Hunter', 'Master', 'Lord', 'King', 'Pro', 'Elite', 'Legend', 'Hero', 'Champion', 'Warrior'];
-  
-  return Array.from({ length: count }, (_, i) => {
-    const wins = Math.floor(Math.random() * 500) + 50;
-    const losses = Math.floor(Math.random() * 300) + 20;
-    const gamesPlayed = wins + losses;
-    const winRate = Math.round((wins / gamesPlayed) * 100);
-    const averageScore = Math.floor(Math.random() * 5000) + 1000;
-    
-    return {
-      id: `player-${i + 1}`,
-      username: `${usernames[Math.floor(Math.random() * usernames.length)]}${suffixes[Math.floor(Math.random() * suffixes.length)]}${Math.floor(Math.random() * 999)}`,
-      rank: i + 1,
-      score: Math.floor(Math.random() * 10000) + 5000 - (i * 10),
-      wins,
-      losses,
-      winRate,
-      averageScore,
-      gamesPlayed,
-      lastActive: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-      country: countries[Math.floor(Math.random() * countries.length)],
-      level: Math.floor(Math.random() * 100) + 1,
-    };
-  }).sort((a, b) => b.score - a.score).map((player, index) => ({ ...player, rank: index + 1 }));
-};
-
-// Generate mock chart data
-export const generateChartData = (): ChartData[] => {
-  const data: ChartData[] = [];
-  const now = new Date();
-  
-  for (let i = 23; i >= 0; i--) {
-    const time = new Date(now.getTime() - i * 60 * 60 * 1000);
-    data.push({
-      time: time.toISOString().slice(11, 16),
-      activePlayers: Math.floor(Math.random() * 5000) + 2000,
-      matches: Math.floor(Math.random() * 200) + 50,
-    });
-  }
-  
-  return data;
-};
-
 export const mockGameStats: GameStats = {
-  totalPlayers: 125847,
-  activePlayers: 8542,
-  totalMatches: 2847502,
-  matchesLast24h: 15847,
-  averageMatchDuration: 12.5,
-  peakConcurrentPlayers: 12847,
+  totalPlayers: 12457,
+  activePlayers: 2345,
+  matchesLast24h: 567,
+  averageMatchDuration: 7.5,
 };
 
-export const mockPlayers = generateMockPlayers(10000);
-export const mockChartData = generateChartData();
+export const mockChartData: ChartData = {
+  labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+  datasets: [
+    {
+      label: 'Matches Played',
+      data: [50, 60, 75, 90, 110, 100, 120],
+      borderColor: 'rgb(54, 162, 235)',
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+    },
+    {
+      label: 'Active Players',
+      data: [200, 220, 250, 230, 280, 300, 270],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+  ],
+};
+
+export const mockPlayers: Player[] = Array.from({ length: 10247 }, (_, i) => ({
+  id: `player-${i + 1}`,
+  rank: i + 1,
+  username: `Player${i + 1}`,
+  score: Math.floor(Math.random() * 100000) + 50000,
+  level: Math.floor(Math.random() * 100) + 1,
+  winRate: Math.floor(Math.random() * 100),
+  gamesPlayed: Math.floor(Math.random() * 1000) + 100,
+  wins: 0,
+  losses: 0,
+  averageScore: Math.floor(Math.random() * 5000) + 1000,
+  country: ["US", "UK", "DE", "FR", "JP", "KR", "CN", "BR", "AU", "CA"][Math.floor(Math.random() * 10)],
+  lastActive: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
+  // New properties
+  totalPlayTime: Math.floor(Math.random() * 500) + 50,
+  highestStreak: Math.floor(Math.random() * 50) + 1,
+  currentStreak: Math.floor(Math.random() * 20),
+  favoriteGameMode: ["Classic", "Ranked", "Arena", "Tournament", "Casual"][Math.floor(Math.random() * 5)],
+  achievements: Math.floor(Math.random() * 100) + 10,
+  joinDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000 * 3).toISOString(),
+  clan: [`Clan${Math.floor(Math.random() * 20) + 1}`, "Independent"][Math.floor(Math.random() * 2)],
+  prestigeLevel: Math.floor(Math.random() * 10),
+})).map(player => ({
+  ...player,
+  wins: Math.floor(player.gamesPlayed * (player.winRate / 100)),
+  losses: player.gamesPlayed - Math.floor(player.gamesPlayed * (player.winRate / 100)),
+}));

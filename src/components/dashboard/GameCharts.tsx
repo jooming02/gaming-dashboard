@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Area, AreaChart, Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
+import { Area, AreaChart, Bar, BarChart, XAxis, YAxis } from "recharts";
 import { ChartData } from "@/services/gameData";
 
 interface GameChartsProps {
@@ -22,7 +22,7 @@ const chartConfig = {
 export const GameCharts = ({ data }: GameChartsProps) => {
   // Convert the chart data format to match what recharts expects
   const chartData = data.labels.map((label, index) => ({
-    time: label,
+    time: label, // Days
     activePlayers: data.datasets[1]?.data[index] || 0,
     matches: data.datasets[0]?.data[index] || 0,
   }));
@@ -35,6 +35,7 @@ export const GameCharts = ({ data }: GameChartsProps) => {
           <CardDescription className="text-xs sm:text-sm">Real-time player activity</CardDescription>
         </CardHeader>
         <CardContent>
+          {/* w-full making it responsive  */}
           <ChartContainer config={chartConfig} className="h-[120px] sm:h-[180px] lg:h-[220px] w-full">
             <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 5, bottom: 5 }}>
               <XAxis 
@@ -42,18 +43,19 @@ export const GameCharts = ({ data }: GameChartsProps) => {
                 fontSize={10}
                 tickMargin={4}
                 interval="preserveStartEnd"
-                hide={true}
+                // hide={true}
               />
               <YAxis 
                 fontSize={10}
                 tickMargin={4}
                 width={30}
-                className="hidden sm:block"
               />
               <ChartTooltip content={<ChartTooltipContent />} />
+              {/* legend */}
+              {/* <ChartLegend content={<ChartLegendContent />} /> */}
               <Area
-                type="monotone"
-                dataKey="activePlayers"
+                type="monotone"// this making the line smooth
+                dataKey="activePlayers" // * important: this should match the key in chartData
                 stroke="var(--color-activePlayers)"
                 fill="var(--color-activePlayers)"
                 fillOpacity={0.3}
@@ -76,16 +78,20 @@ export const GameCharts = ({ data }: GameChartsProps) => {
                 fontSize={10}
                 tickMargin={4}
                 interval="preserveStartEnd"
-                hide={true}
+                // hide={true}
               />
               <YAxis 
                 fontSize={10}
                 tickMargin={4}
                 width={30}
-                className="hidden sm:block"
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey="matches" fill="var(--color-matches)" />
+              <Bar 
+                dataKey="matches" // * important: this should match the key in chartData
+                radius={[6, 6, 0, 0]}
+                // barSize={20}
+                fill="var(--color-matches)" 
+              />
             </BarChart>
           </ChartContainer>
         </CardContent>

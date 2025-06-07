@@ -5,7 +5,7 @@ import { LucideIcon } from "lucide-react";
 interface StatsCardProps {
   title: string;
   value: string | number;
-  description?: string;
+  description: string;
   icon: LucideIcon;
   trend?: {
     value: number;
@@ -22,12 +22,10 @@ export const StatsCard = ({ title, value, description, icon: Icon, trend }: Stat
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{typeof value === 'number' ? value.toLocaleString() : value}</div>
-        {description && (
-          <p className="text-xs text-muted-foreground mt-1">{description}</p>
-        )}
+        <p className="text-xs text-muted-foreground mt-1">{description}</p>
         {trend && (
           <div className={`text-xs mt-1 ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-            {trend.isPositive ? '↗' : '↘'} {Math.abs(trend.value)}% from last week
+            {trend.isPositive ? '↗' : '↘'} {trend.value}% from last week
           </div>
         )}
       </CardContent>

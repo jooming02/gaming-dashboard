@@ -11,8 +11,8 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold text-gray-900">Game Dashboard</h1>
-          <p className="text-xl text-gray-600">Real-time statistics and player leaderboard</p>
+          <h1 className="text-2xl lg:text-4xl font-bold text-gray-900">Game Dashboard</h1>
+          <p className="text-sm lg:text-xl text-gray-600">Real-time statistics and player leaderboard</p>
         </div>
 
         {/* Stats Cards */}

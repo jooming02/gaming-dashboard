@@ -32,10 +32,8 @@ export interface GameStats {
 export interface ChartData {
   labels: string[];
   datasets: {
-    label: string;
+    label?: string;
     data: number[];
-    borderColor: string;
-    backgroundColor: string;
   }[];
 }
 
@@ -50,16 +48,12 @@ export const mockChartData: ChartData = {
   labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
   datasets: [
     {
-      label: 'Matches Played',
-      data: [50, 60, 75, 90, 110, 100, 120],
-      borderColor: 'rgb(54, 162, 235)',
-      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+      // label: 'Matches Played',
+      data: [50, 60, 75, 90, 110, 100, 120]
     },
     {
-      label: 'Active Players',
-      data: [200, 220, 250, 230, 280, 300, 270],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      // label: 'Active Players',
+      data: [200, 220, 250, 230, 280, 300, 270]
     },
   ],
 };

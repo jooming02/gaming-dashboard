@@ -58,9 +58,10 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
   };
 
   const filteredAndSortedPlayers = useMemo(() => {
-    let filtered = players.filter((player) =>
+    const filtered = players.filter((player) =>
       player.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      player.country.toLowerCase().includes(searchTerm.toLowerCase())
+      player.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      player.score.toString().includes(searchTerm)
     );
 
     filtered.sort((a, b) => {
@@ -126,10 +127,11 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
   };
 
   return (
-    <Card>
+    <Card>        
       <CardHeader>
         <CardTitle className="text-lg sm:text-xl">Top Players Leaderboard</CardTitle>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-4">
+          {/* Search */}
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -142,6 +144,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
               className="pl-8 text-sm"
             />
           </div>
+          {/* Pagination */}
           <div className="flex items-center gap-2">
             <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
               Rows per page:
@@ -157,6 +160,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
               </SelectContent>
             </Select>
           </div>
+          {/* Total Players */}
           <div className="text-xs sm:text-sm text-muted-foreground">
             {filteredAndSortedPlayers.length} players
           </div>
@@ -167,9 +171,11 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
           <Table>
             <TableHeader>
               <TableRow>
+                {/* sticky */}
                 <TableHead className="sticky left-0 bg-background z-10 w-[50px] sm:w-[80px] border-r">
                   <SortButton field="rank">Rank</SortButton>
                 </TableHead>
+                {/* sticky */}
                 <TableHead className="sticky left-[50px] sm:left-[80px] bg-background z-10 min-w-[120px] border-r">
                   <SortButton field="username">Player</SortButton>
                 </TableHead>
@@ -237,6 +243,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
                       {player.username}
                     </div>
                   </TableCell>
+                  {/* toLocaleString makes the numbers contains , which easier for users to view */}
                   <TableCell className="text-xs sm:text-sm">{player.score.toLocaleString()}</TableCell>
                   <TableCell className="hidden sm:table-cell text-xs sm:text-sm">{player.level}</TableCell>
                   <TableCell>

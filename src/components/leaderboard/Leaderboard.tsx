@@ -32,7 +32,8 @@ interface LeaderboardProps {
   players: Player[];
 }
 
-type SortField = keyof Player;
+// keyof defines a union type of all keys in Player interface
+type SortField = keyof Player; // "id" | "rank" | "username" | "score" | "level, ...";
 type SortDirection = "asc" | "desc";
 
 export const Leaderboard = ({ players }: LeaderboardProps) => {
@@ -70,7 +71,8 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
       const bValue = b[sortField];
       
       if (typeof aValue === "string" && typeof bValue === "string") {
-        const comparison = aValue.localeCompare(bValue);
+        // localeCompare is used for string comparison
+        const comparison = aValue.localeCompare(bValue); 
         return sortDirection === "asc" ? comparison : -comparison;
       }
       
@@ -85,9 +87,10 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
     return filtered;
   }, [players, searchTerm, sortField, sortDirection]);
 
-  const totalPages = Math.ceil(filteredAndSortedPlayers.length / playersPerPage);
+  const totalPages = Math.ceil(filteredAndSortedPlayers.length / playersPerPage); // Math.ceil rounds up to the nearest whole number
   const startIndex = (currentPage - 1) * playersPerPage;
   const endIndex = startIndex + playersPerPage;
+  // slice: extracts a portion of an array without changing the original array
   const currentPlayers = filteredAndSortedPlayers.slice(startIndex, endIndex);
 
   const SortButton = ({ field, children }: { field: SortField; children: React.ReactNode }) => (
@@ -104,10 +107,12 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
   );
 
   const formatLastActive = (date: string) => {
+    // handle dituation within 1 hour, 24 hours, and more than 24 hours
     const now = new Date();
     const lastActive = new Date(date);
+    // getTime give timestamp in milliseconds, so we need to divide by 1000 * 60 * 60 to get hours
     const diffInHours = Math.floor((now.getTime() - lastActive.getTime()) / (1000 * 60 * 60));
-    
+    // Math.Round can be another option
     if (diffInHours < 1) return "Just now";
     if (diffInHours < 24) return `${diffInHours}h ago`;
     const diffInDays = Math.floor(diffInHours / 24);
@@ -116,10 +121,11 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
 
   const formatJoinDate = (date: string) => {
     const joinDate = new Date(date);
-    return joinDate.toLocaleDateString();
+    return joinDate.toLocaleDateString(); // human-readable format "8/6/2025"
   };
 
   const formatPlayTime = (hours: number) => {
+    // handle hours and days
     if (hours < 24) return `${hours}h`;
     const days = Math.floor(hours / 24);
     const remainingHours = hours % 24;
@@ -135,7 +141,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search players..."
+              placeholder="Search players by name, country, or score"
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -160,10 +166,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
               </SelectContent>
             </Select>
           </div>
-          {/* Total Players */}
-          <div className="text-xs sm:text-sm text-muted-foreground">
-            {filteredAndSortedPlayers.length} players
-          </div>
+          
         </div>
       </CardHeader>
       <CardContent>
@@ -176,7 +179,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
                   <SortButton field="rank">Rank</SortButton>
                 </TableHead>
                 {/* sticky */}
-                <TableHead className="sticky left-[50px] sm:left-[80px] bg-background z-10 min-w-[120px] border-r">
+                <TableHead className="sticky left-[50px] sm:left-[80px] bg-background z-10 min-w-[100px] border-r">
                   <SortButton field="username">Player</SortButton>
                 </TableHead>
                 <TableHead className="min-w-[100px]">
@@ -227,6 +230,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
               </TableRow>
             </TableHeader>
             <TableBody>
+              {/* mapping of each player */}
               {currentPlayers.map((player) => (
                 <TableRow key={player.id}>
                   <TableCell className="sticky left-0 bg-background z-10 font-medium border-r">
@@ -322,13 +326,14 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
             </div>
             <Pagination>
               <PaginationContent>
+                {/* Previous pagination */}
                 <PaginationItem>
                   <PaginationPrevious 
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
                   />
                 </PaginationItem>
-                
+                {/* 1 to 5 (max 5) */}
                 {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                   const pageNumber = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
                   return (
@@ -343,7 +348,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
                     </PaginationItem>
                   );
                 })}
-                
+                {/* Next Pagination */}
                 <PaginationItem>
                   <PaginationNext 
                     onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}

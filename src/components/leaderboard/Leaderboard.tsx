@@ -32,7 +32,7 @@ interface LeaderboardProps {
   players: Player[];
 }
 
-// keyof defines a union type of all keys in Player interface
+// keyof defines a union type of all keys in Player interface 
 type SortField = keyof Player; // "id" | "rank" | "username" | "score" | "level, ...";
 type SortDirection = "asc" | "desc";
 

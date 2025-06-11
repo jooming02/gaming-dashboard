@@ -29,7 +29,7 @@ import { Player } from "@/services/gameData";
 import { ChevronUp, ChevronDown, Search } from "lucide-react";
 
 interface LeaderboardProps {
-  players: Player[];
+  players: Player[]; 
 }
 
 // keyof defines a union type of all keys in Player interface 

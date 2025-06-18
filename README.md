@@ -1,6 +1,6 @@
 # 🎮 GameStats Dashboard
 
-A **high-performance React + TypeScript** dashboard that simulates a real-time game analytics environment. It features a fully interactive leaderboard for over **10,000 players**, complete with search, sort, pagination, and visual indicators.
+A gaming dashboard that simulates the game analytics environment. It features a fully interactive leaderboard for over **10,000 players**, complete with search, sort, pagination, and visual indicators.
 
 
 ## 🚀 Live Preview
@@ -12,15 +12,18 @@ A **high-performance React + TypeScript** dashboard that simulates a real-time g
 ## 📊 Features
 
 ### 📌 Dashboard Overview
-- **Real-time Statistics**: Displays total players, active users, today’s matches, and average match duration.
-- **Interactive Charts**: Visualizes 24-hour player activity and match frequency using live and historical data.
+- **Statistics**: Displays total players, active players, today’s matches, and average match duration.
+- **Interactive Charts**: Visualizes weekly player activity and match frequency using historical data.
 
-### 🏆 Advanced Leaderboard
+### 🏆 Leaderboard Overview
+- **Data Handling**: Mock Data Generator simulating 10,000+ random player profiles
 - **Search**: Instantly search by player `username` or `country`.
-- **Multi-column Sorting**: Sort by `rank`, `score`, `win rate`, `games played`, and more.
-- **Pagination**: Handles **10,000+ players** efficiently, displaying 50 players per page.
+- **Sorting**: Sort by `rank`, `score`, `win rate`, `games played`, and more.
+- **Pagination**: Efficiently supports 10,000+ players with options to display 10, 25, or 50 players per page.
 - **Data Rich Display**: Rank badges, win/loss stats, last activity, and country flags.
-- **Responsive UI**: Scrollable on mobile, optimized layout for desktop.
+- **Responsive design**: Mobile-friendly design with:
+  - Hidden columns on smaller screens for clarity
+  - Horizontally scrollable table to access all data
 - **Performance Optimized**:
   - `React.useMemo` for filtered/sorted results
   - Minimal re-renders via component memoization
@@ -30,10 +33,8 @@ A **high-performance React + TypeScript** dashboard that simulates a real-time g
 
 - **Frontend**: [React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/)
 - **UI**: Tailwind CSS, ShadCN UI, Recharts
-- **State & Logic**: React Hooks, `useMemo`, `useCallback`, context
-- **Data Handling**: Mock Data Generator simulating 10,000+ realistic player profiles
 - **Charting**: [Recharts](https://recharts.org/)
-- **Icons & Flags**: [Lucide Icons](https://lucide.dev/), country flags via emoji or API
+- **Icons**: [Lucide Icons](https://lucide.dev/)
 
 ## 📦 Getting Started
 

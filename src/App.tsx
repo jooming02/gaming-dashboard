@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
+// React Query is not utilized in this example, but it's set up for future use
+// If you need to fetch data, you can create queries using useQuery or useMutation hooks
 const queryClient = new QueryClient();
 
 const App = () => (

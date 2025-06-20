@@ -61,8 +61,8 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
   const filteredAndSortedPlayers = useMemo(() => {
     const filtered = players.filter((player) =>
       player.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      player.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      player.score.toString().includes(searchTerm)
+      player.country.toLowerCase().includes(searchTerm.toLowerCase())
+      // player.score.toString().includes(searchTerm)
     );
 
     filtered.sort((a, b) => {
@@ -141,7 +141,7 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search players by name, country, or score"
+              placeholder="Search players by name or country"
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
